@@ -23,7 +23,7 @@ const uri = process.env.MONGO_CLOUD;  //Cloud Database
 const app = express();
 const port = process.env.PORT || 5000;
 app.use(cors());
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: 'https://taskology-mu.vercel.app', credentials: true }));
 
 
 const MongoDB = process.env.DB_CONFIG;
