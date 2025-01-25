@@ -86,25 +86,32 @@ app.get(
   passport.authenticate('google', { failureRedirect: '/' }),
 
   async (req, res) => {
-    const { displayName, emails } = req.user;
-    const email = emails[0].value;
-    let user = await User.findOne({ email });
-    if (!user) {
-      user = new User({
-        username: displayName,
-        email: email,
-        password:'na'
-        // googleId: id, // Save Google ID
-      });
-      await user.save();
-    }
+    try {
+      const { displayName, emails } = req.user;
+      const email = emails[0].value;
+      let user = await User.findOne({ email });
+      
+      if (!user) {
+        user = new User({
+          username: displayName,
+          email: email,
+          password: 'na' // Adjust this as needed
+        });
+        await user.save();
+      }
 
-    const token = jwt.sign(
-      { id: user._id, username: user.username, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
-    res.redirect(`https://taskology-mu.vercel.app/dashboard?token=${token}`);  }
+      const token = jwt.sign(
+        { id: user._id, username: user.username, email: user.email },
+        process.env.JWT_SECRET,
+        { expiresIn: '1h' }
+      );
+
+      res.redirect(`https://taskology-mu.vercel.app/dashboard?token=${token}`);
+    } catch (error) {
+      console.error('Error during Google callback:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  }
 );
 
 // Logout
