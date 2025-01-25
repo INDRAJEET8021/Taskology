@@ -3,9 +3,12 @@ import { useAuth } from '../AuthContext/AuthContext';
 import { Button, Typography, Paper } from '@mui/material';
 import { CheckCircleOutline } from '@mui/icons-material';
 
+import { useNavigate } from 'react-router-dom';
+
 const Dashboard = () => {
   const [token, setToken] = useState(null);
   const { login } = useAuth();
+  const navigate = useNavigate(); // Hook to handle navigation
 
   // Function to extract token from query parameters
   const getTokenFromQuery = () => {
@@ -19,8 +22,9 @@ const Dashboard = () => {
     if (token) {
       setToken(token);
       login(token);
+      navigate('/dashboard'); // Redirect to dashboard after login
     }
-  }, []);
+  }, [login, navigate]);
 
   if (!token) {
     return <p>Loading...</p>;
@@ -46,7 +50,7 @@ const Dashboard = () => {
             variant="contained"
             color="primary"
             fullWidth
-            onClick={() => window.location.href = '/'}
+            onClick={() => navigate('/')} // Use navigate for redirection
             className="mt-4"
           >
             Go to Home
