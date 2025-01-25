@@ -23,7 +23,7 @@ const TaskList = () => {
       if (token) {
         try {
           const response = await axios.get(
-            "http://localhost:5000/task/user-task",
+            "https://taskology-5brp.onrender.com/task/user-task",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -49,7 +49,7 @@ const TaskList = () => {
   const handleAddTask = async (newTask) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/task/add",
+        "https://taskology-5brp.onrender.com/task/add",
         { ...newTask, status: "Pending" }, // Send task details to backend
         {
           headers: {
@@ -80,7 +80,7 @@ const TaskList = () => {
     );
     if (confirmed) {
       try {
-        await axios.delete(`http://localhost:5000/task/${_id}/delete`, {
+        await axios.delete(`https://taskology-5brp.onrender.com/task/${_id}/delete`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -104,7 +104,7 @@ const TaskList = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/task/${_id}/detail-update`,
+        `https://taskology-5brp.onrender.com/task/${_id}/detail-update`,
         updatedTask,
         {
           headers: {
@@ -155,7 +155,7 @@ const TaskList = () => {
 
       // Update status in backend
       const response = await axios.put(
-        `http://localhost:5000/task/${taskId}/status`,
+        `https://taskology-5brp.onrender.com/task/${taskId}/status`,
         { status: newStatus },
         {
           headers: {

@@ -2,11 +2,10 @@ import React, { useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 
 const GlobalLoader = ({ open }) => {
-  // Disable scrolling on the body while the loader is active
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
-      document.body.style.pointerEvents = 'none'; // Prevent interactions
+      document.body.style.pointerEvents = 'none'; 
     } else {
       document.body.style.overflow = 'auto';
       document.body.style.pointerEvents = 'auto';

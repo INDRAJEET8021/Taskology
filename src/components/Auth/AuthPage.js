@@ -39,7 +39,8 @@ const AuthPage = ({ onClose }) => {
     setError("");
     setSuccess("");
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", {
+      // http://localhost:5000
+      const response = await axios.post("https://taskology-5brp.onrender.com/auth/login", {
         email,
         password,
       });
@@ -66,7 +67,7 @@ const AuthPage = ({ onClose }) => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:5000/auth/google';
+    window.location.href = 'https://taskology-5brp.onrender.com/auth/google';
   };
   
   return (

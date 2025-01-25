@@ -32,7 +32,7 @@ const FeedPage = () => {
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:5000/feed/all");
+        const response = await axios.get("https://taskology-5brp.onrender.com/feed/all");
         setPosts(response.data.feeds);
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -66,7 +66,7 @@ const FeedPage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/feed/add-feed",
+        "https://taskology-5brp.onrender.com/feed/add-feed",
         formData,
         {
           headers: {
