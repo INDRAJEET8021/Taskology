@@ -105,7 +105,7 @@ app.get(
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
-    res.redirect(`http://localhost:3000/dashboard?token=${token}`);  }
+    res.redirect(`https://taskology-mu.vercel.app/dashboard?token=${token}`);  }
 );
 
 // Logout
