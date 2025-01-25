@@ -192,13 +192,13 @@ const AboutPage = () => {
                   padding: 3,
                   boxShadow: 4,
                   borderRadius: 2,
-                  height: "100%", // Ensures all cards have the same height
+                  height: "100%",
                   display: "flex",
                   flexDirection: "column",
                   transition: "transform 0.3s ease, box-shadow 0.3s ease",
                   "&:hover": {
-                    transform: "scale(1.05)", // Zoom effect
-                    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)", // Add shadow on hover
+                    transform: "scale(1.05)",
+                    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
                   },
                 }}
               >
@@ -206,11 +206,13 @@ const AboutPage = () => {
                   variant="h6"
                   sx={{ fontWeight: "bold", color: "primary.main" }}
                 >
-                  Movie Search
+                  Task Management
                 </Typography>
                 <Typography variant="body1" sx={{ color: "text.secondary" }}>
-                  Search movies by title and view detailed information,
-                  including plot, rating, and cast.
+                  Users can add tasks and effortlessly drag and drop them
+                  between columns, customizing their workflow according to their
+                  preferences for a smooth and intuitive task management
+                  experience.{" "}
                 </Typography>
               </Card>
             </Grid>
@@ -235,11 +237,12 @@ const AboutPage = () => {
                   variant="h6"
                   sx={{ fontWeight: "bold", color: "primary.main" }}
                 >
-                  Favorites List
+                  Feeds Section
                 </Typography>
                 <Typography variant="body1" sx={{ color: "text.secondary" }}>
-                  Save your favorite movies and easily access them from your
-                  profile.
+                  Users can easily post updates to their feed, view all shared
+                  posts, and read their captions, creating an interactive and
+                  engaging experience.{" "}
                 </Typography>
               </Card>
             </Grid>
@@ -264,11 +267,12 @@ const AboutPage = () => {
                   variant="h6"
                   sx={{ fontWeight: "bold", color: "primary.main" }}
                 >
-                  Movie Details
+                  Smart Authentication
                 </Typography>
                 <Typography variant="body1" sx={{ color: "text.secondary" }}>
-                  Get comprehensive details about each movie including the
-                  director, runtime, and box office information.
+                  Users can easily register using their email or through
+                  seamless Google Authentication. Additionally, a secure
+                  OTP-based password reset system.
                 </Typography>
               </Card>
             </Grid>
@@ -323,7 +327,7 @@ const AboutPage = () => {
                   Indrajeet Rai
                 </Typography>
                 <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  FullStack Backend Developer
+                  FullStack Developer
                 </Typography>
                 <Box sx={{ marginTop: 2 }}>
                   <IconButton
