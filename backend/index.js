@@ -52,7 +52,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: '/auth/google/callback',
+      callbackURL: 'https://taskology-mu.vercel.app/auth/google/callback', // Update with your actual deployed URL
     },
     (accessToken, refreshToken, profile, done) => {
       // User's Google profile information
