@@ -1,70 +1,228 @@
-# Getting Started with Create React App
+# Taskology
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Taskology is a **Full-Stack web application** designed to streamline task management with features like adding tasks and tracking their status **(Pending, Completed, Done)**. It incorporates a secure authentication system, enabling users to register, log in, and reset forgotten passwords through an **OTP-based reset mechanism**.
 
-## Available Scripts
+Additionally, **Google Authentication** is integrated for a seamless login experience. Taskology also offers a social **feeds** feature, allowing users to share posts with **images** and **captions** while exploring feeds from other users.
 
-In the project directory, you can run:
+This live project showcases a combination of robust functionality and engaging user interaction, making task management and social interaction efficient and enjoyable.
 
-### `npm start`
+### Features:
+- **Authentication**: User can register and reset their Password.
+- **Google Authentication System**: User can Login Using Google Account.
+- **Task**: Drag and from features of mannaging the status of task.
+- **Feed Post**: User can Post feeds and see others feeds.
+- **Responsive design**: Works seamlessly across devices (desktop, tablet, mobile).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Setup Instructions
 
-### `npm test`
+### 1. Clone the repository
+To get started with the project, first clone the repository to your local machine:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+git clone https://github.com/INDRAJEET8021/Taskology.git
+```
 
-### `npm run build`
+### 2. Install Dependencies
+The project consists of both frontend (React) and backend (Node.js). You need to install dependencies for both parts of the application.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+For the backend, navigate to the backend directory and run:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+cd backend
+npm install
+```
 
-### `npm run eject`
+### 3. Set up Environment Variables
+You will need to configure environment variables for both the frontend and backend.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Frontend (.env)
+Create a .env file in the frontend directory (Root) and add your REACT_APP_BACKEND_API: Like (http://localhost:5000/) etc.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+REACT_APP_BACKEND_API=your_backend_api
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Backend (.env)
+Create a .env file in the backend directory and add your OMDB API key along with your database and JWT secrets:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+DB_CONFIG=mongodb_string
 
-## Learn More
+JWT_SECRET = jwt_secret
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+CLOUD_NAME= cloudinary_name
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+API_KEY= cloudinary_api_key
 
-### Code Splitting
+API_SECRET= cloudinry_api_secret
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+PORT=port
 
-### Analyzing the Bundle Size
+EMAIL_USER=your_valid email
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+EMAIL_PASS=email_password
 
-### Making a Progressive Web App
+GOOGLE_CLIENT_ID=your_google_client_id
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+GOOGLE_CLIENT_SECRET=google_client_secret
 
-### Advanced Configuration
+SESSION_SECRET=secret_code
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+MONGO_CLOUD=cloud_mongoDB_URL (Optional)
 
-### Deployment
+CLIENT_URL=http://localhost:3000 or etc.
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 4. Start the Project
+For the frontend, run the following command in the frontend directory:
+```
+npm run start
+```
+For the backend, run the following command in the backend 
+```
+cd backend
+npm run dev
+```
+## API Documentation
+### 1. Authentication
+To register .
 
-### `npm run build` fails to minify
+**Method**: `POST` 
+```
+Base URL: /auth/register
+```
+To login .
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Method**: `POST` 
+```
+Base URL: /auth/login
+```
+To Forgot Password and OTP Generate .
+
+**Method**: `POST` 
+```
+Base URL: /passwordConfig/forgot-password
+
+```
+To reset password .
+
+**Method**: `POST` 
+```
+Base URL: /passwordConfig/reset-password
+```
+
+To login with google .
+
+**Method**: `GET` 
+```
+Base URL: /auth/google
+```
+### 2. Feeds
+
+To See Feeds .
+
+**Method**: `GET` 
+```
+Base URL: /feeds/all
+```
+
+To Add Feeds .
+
+**Method**: `POST` 
+```
+Base URL: /feeds/add-feed
+
+```
+
+### 3. Tasks
+
+To add Task .
+
+**Method**: `POST` 
+```
+Base URL: /task/add
+```
+
+To Chnage Status .
+
+**Method**: `POS` 
+```
+Base URL: /task/:id/status
+```
+
+To See All Users Tasks .
+
+**Method**: `GET`   
+
+```
+
+Base URL: /task/user-task
+```
+To Edit Task .
+
+**Method**: `POST`   
+
+```
+Base URL: /task/:id/detail-update
+```
+
+To Delete Task .
+
+**Method**: `POST`  
+```
+Base URL: /task/:id/delete
+```
+
+## Deployment ##
+
+### Frontend Deployment: ###
+Frontend is Deployed on vercel.
+
+### Backend Deployment: ###
+Backend is Deployed on Render.
+### Cloud Database ###
+
+**`MongoDB Cloud`** is used for clud database
+
+**`Cloudinary`** is used for uploading images
+
+## List of Implemented Features ##
+
+### 1. Authentication ###
+
+JWT Based Authentication ,Google Authentication System and OTP Based Password reset .
+
+### 2.  Task Management ###
+Drang and Drop Functionality of adding and mannaging task status as per prefrence.
+
+### 3. Feed Post and visuals
+
+User can Post Feeds and see all posts and Caption.
+
+### 4. Drag and Drop  Functoinality
+
+Users can remove movies from their favorites list at any time.
+
+### 5. Responsive Design
+
+The app is fully responsive and adjusts to different screen sizes (desktop, tablet, mobile).
+
+
+###  6. Backend API Integration
+
+Node.js backend to manage the API calls and handle data.
+Implements secure endpoints to handle users JWT-based authentication system.
+
+
+### 7. Cross-Platform Compatibility
+
+Fully tested and optimized for cross-browser compatibility (Chrome, Firefox, Safari, Edge, etc.).
+
+
+
