@@ -1,10 +1,10 @@
-# Taskology
+# Taskology  
+### ***See Project Features And Working 👇***
+- https://youtu.be/js2WrILycAI?si=PmHbeDf2Gvf7la6_
 
-Taskology is a **Full-Stack web application** designed to streamline task management with features like adding tasks and tracking their status **(Pending, Completed, Done)**. It incorporates a secure authentication system, enabling users to register, log in, and reset forgotten passwords through an **OTP-based reset mechanism**.
+#
 
-Additionally, **Google Authentication** is integrated for a seamless login experience. Taskology also offers a social **feeds** feature, allowing users to share posts with **images** and **captions** while exploring feeds from other users.
-
-This live project showcases a combination of robust functionality and engaging user interaction, making task management and social interaction efficient and enjoyable.
+Taskology is a **Full-Stack** application that allows users to add task and mannage their status **(Pending, Completed, Done)**. In this project the Authentication System are Implemented to allow user to register and login, And in case they forgot their passwoord then they can reset it **(OTP Based)**. Apart from this **Google Authentication** is Implememted. Another Feature is that **Feeds** where user can post a image along with their **Caption** and they can see all users feed.It is **Fully LIVE** Project.
 
 ### Features:
 - **Authentication**: User can register and reset their Password.
