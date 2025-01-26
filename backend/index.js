@@ -23,6 +23,12 @@ const uri = process.env.MONGO_CLOUD;  //Cloud Database
 const app = express();
 const port = process.env.PORT || 5000;
 app.use(cors());
+app.use(
+  cors({
+    origin: 'https://taskology-mu.vercel.app', // Frontend URL
+    credentials: true,
+  })
+);
 
 
 const MongoDB = process.env.DB_CONFIG;
@@ -52,7 +58,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'auth/google/callback', 
+      callbackURL: 'https://taskology-mu.vercel.app/auth/google/callback', // Update with your actual deployed URL
     },
     (accessToken, refreshToken, profile, done) => {
       // User's Google profile information
@@ -105,6 +111,7 @@ app.get(
         process.env.JWT_SECRET,
         { expiresIn: '1h' }
       );
+      console.log("tokrn is:",token)
 
       res.redirect(`https://taskology-mu.vercel.app/dashboard?token=${token}`);
     } catch (error) {
