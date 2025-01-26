@@ -13,7 +13,7 @@ const TaskCard = ({ task, index, onDelete, onEdit }) => {
           {...provided.dragHandleProps}
         >
           <Card
-            className="bg-white shadow-lg rounded-lg mb-4 mt-2 group relative" // Added relative to position buttons
+            className="bg-white shadow-lg rounded-lg mb-4 mt-2 group relative" 
             sx={{
               padding: 2,
               boxShadow: 4,

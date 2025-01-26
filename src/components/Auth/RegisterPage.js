@@ -29,7 +29,7 @@ const RegisterPage = ({ onClose }) => {
     setSuccess("");
 
     try {
-      const response = await axios.post("https://taskology-5brp.onrender.com/auth/register", {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/register`, {
         username,
         email,
         password,

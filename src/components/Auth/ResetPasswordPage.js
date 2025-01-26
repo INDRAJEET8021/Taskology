@@ -39,7 +39,7 @@ const ResetPasswordPage = ({ onClose }) => {
 
     try {
       const response = await axios.post(
-        "https://taskology-5brp.onrender.com/passwordConfig/forgot-password",
+        `${process.env.REACT_APP_BACKEND_API}/passwordConfig/forgot-password`,
         {
           email,
         }
@@ -74,7 +74,7 @@ const ResetPasswordPage = ({ onClose }) => {
 
     try {
       const response = await axios.post(
-        "https://taskology-5brp.onrender.com/passwordConfig/reset-password",
+        `${process.env.REACT_APP_BACKEND_API}/passwordConfig/reset-password`,
         {
           email,
           otp,

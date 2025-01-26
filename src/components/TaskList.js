@@ -23,7 +23,7 @@ const TaskList = () => {
       if (token) {
         try {
           const response = await axios.get(
-            "https://taskology-5brp.onrender.com/task/user-task",
+            `${process.env.REACT_APP_BACKEND_API}/task/user-task`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -49,7 +49,7 @@ const TaskList = () => {
   const handleAddTask = async (newTask) => {
     try {
       const response = await axios.post(
-        "https://taskology-5brp.onrender.com/task/add",
+        `${process.env.REACT_APP_BACKEND_API}/task/add`,
         { ...newTask, status: "Pending" }, // Send task details to backend
         {
           headers: {
@@ -80,11 +80,14 @@ const TaskList = () => {
     );
     if (confirmed) {
       try {
-        await axios.delete(`https://taskology-5brp.onrender.com/task/${_id}/delete`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        await axios.delete(
+          `${process.env.REACT_APP_BACKEND_API}/task/${_id}/delete`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         setTasks(tasks.filter((task) => task._id !== _id)); // Use _id if that's the field name
         alert("Task deleted successfully");
       } catch (error) {
@@ -104,7 +107,7 @@ const TaskList = () => {
 
     try {
       const response = await axios.put(
-        `https://taskology-5brp.onrender.com/task/${_id}/detail-update`,
+        `${process.env.REACT_APP_BACKEND_API}/task/${_id}/detail-update`,
         updatedTask,
         {
           headers: {
@@ -155,7 +158,7 @@ const TaskList = () => {
 
       // Update status in backend
       const response = await axios.put(
-        `https://taskology-5brp.onrender.com/task/${taskId}/status`,
+        `${process.env.REACT_APP_BACKEND_API}/task/${taskId}/status`,
         { status: newStatus },
         {
           headers: {
@@ -194,11 +197,11 @@ const TaskList = () => {
 
       {/* TaskForm Modal */}
       <TaskForm
-        open={isFormOpen} 
+        open={isFormOpen}
         onAddTask={handleAddTask}
         taskToEdit={taskToEdit}
         onUpdateTask={handleUpdateTask}
-        onClose={handleCloseForm} 
+        onClose={handleCloseForm}
       />
 
       <DragDropContext onDragEnd={handleDragEnd}>

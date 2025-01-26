@@ -11,27 +11,18 @@ const login = require("./routes/auth/login");
 const register = require("./routes/auth/register");
 const forgotPassword = require("./routes/auth/password");
 const resetPassword = require("./routes/auth/password");
-const passport = require('passport');
+const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const session = require('express-session');
-const { Strategy: GoogleStrategy } = require('passport-google-oauth20');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const session = require("express-session");
+const { Strategy: GoogleStrategy } = require("passport-google-oauth20");
+const { MongoClient, ServerApiVersion } = require("mongodb");
 
-
-const uri = process.env.MONGO_CLOUD;  //Cloud Database
+const uri = process.env.MONGO_CLOUD; //Cloud Database
 const MongoDB = process.env.DB_CONFIG;
-
 
 const app = express();
 const port = process.env.PORT || 5000;
 app.use(cors());
-app.use(
-  cors({
-    origin: 'https://taskology-mu.vercel.app', 
-    credentials: true,
-  })
-);
-
 
 mongoose
   .connect(uri, {
@@ -41,8 +32,7 @@ mongoose
   .then(() => console.log("Connection Successful"))
   .catch((err) => console.error("Database connection error:", err));
 
-
-app.use(express.json()); 
+app.use(express.json());
 
 // O-Auth
 app.use(
@@ -50,25 +40,17 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: {
-      secure: true, // Set to true if using HTTPS
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-    },
   })
 );
-
 
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'https://taskology-mu.vercel.app/auth/google/callback', 
+      callbackURL: "/auth/google/callback",
     },
     (accessToken, refreshToken, profile, done) => {
-      // User's Google profile information
-      // Save or find user in the database
       return done(null, profile);
     }
   )
@@ -85,24 +67,22 @@ passport.deserializeUser((user, done) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 // Google Login
 app.get(
-  '/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 // Google Callback
 app.get(
-  '/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/" }),
   async (req, res) => {
-    console.log('Google Callback Hit'); // Log that the callback was hit
-    console.log('req.user:', req.user); // Ensure req.user is populated
+   
 
     try {
       const { displayName, emails } = req.user;
-      console.log('User Info:', { displayName, emails });
+      console.log("User Info:", { displayName, emails });
 
       const email = emails[0].value;
       let user = await User.findOne({ email });
@@ -110,7 +90,7 @@ app.get(
         user = new User({
           username: displayName,
           email: email,
-          password: 'na',
+          password: "na",
         });
         await user.save();
       }
@@ -118,34 +98,33 @@ app.get(
       const token = jwt.sign(
         { id: user._id, username: user.username, email: user.email },
         process.env.JWT_SECRET,
-        { expiresIn: '1h' }
+        { expiresIn: "1h" }
       );
-      console.log('Generated Token:', token);
+      // console.log("Generated Token:", token);
 
-      res.redirect(`https://taskology-mu.vercel.app/dashboard?token=${token}`);
+      res.redirect(`${process.env.CLIENT_URL}/dashboard?token=${token}`);
     } catch (error) {
-      console.error('Error during Google callback:', error);
-      res.status(500).send('Internal Server Error');
+      console.error("Error during Google callback:", error);
+      res.status(500).send("Internal Server Error");
     }
   }
 );
 
 // Logout
-app.get('/logout', (req, res) => {
+app.get("/logout", (req, res) => {
   req.logout(() => {
-    res.redirect('/');
+    res.redirect("/");
   });
 });
 
 // Protected Route (Dashboard)
-app.get('/dashboard', (req, res) => {
+app.get("/dashboard", (req, res) => {
   if (req.isAuthenticated()) {
     res.send(`Welcome ${req.user.displayName}!`);
   } else {
-    res.redirect('/');
+    res.redirect("/");
   }
 });
-
 
 // Registration Route
 app.use("/auth", register);
