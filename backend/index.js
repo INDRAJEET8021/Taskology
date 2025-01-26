@@ -75,11 +75,14 @@ app.get(
 
 // Google Callback
 app.get(
-  `${process.env.CLIENT_URL}/auth/google/callback`,
+  "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/" }),
   async (req, res) => {
-   
-
+    if (!req.user) {
+      console.error("Google authentication failed");
+      return res.redirect("/");
+    }
+    
     try {
       const { displayName, emails } = req.user;
       console.log("User Info:", { displayName, emails });
@@ -100,7 +103,6 @@ app.get(
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );
-      // console.log("Generated Token:", token);
 
       res.redirect(`${process.env.CLIENT_URL}/dashboard?token=${token}`);
     } catch (error) {
