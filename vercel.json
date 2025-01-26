@@ -1,14 +1,9 @@
 {
     "rewrites": [
-  {
-    "source": "/auth/google/callback",
-    "destination": "/backend/index.js" 
-  },
-  {
-    "source": "/(.*)",
-    "destination": "/index.html"
-  }
-]
-
+      {
+        "source": "/(.*)",
+        "destination": "/index.html"
+      }
+    ]
   }
   
