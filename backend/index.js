@@ -48,7 +48,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback",
+      callbackURL: `${process.env.CLIENT_URL}/auth/google/callback`,
     },
     (accessToken, refreshToken, profile, done) => {
       return done(null, profile);
@@ -75,7 +75,7 @@ app.get(
 
 // Google Callback
 app.get(
-  "/auth/google/callback",
+  `${process.env.CLIENT_URL}/auth/google/callback`,
   passport.authenticate("google", { failureRedirect: "/" }),
   async (req, res) => {
    
