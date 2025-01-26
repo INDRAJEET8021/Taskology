@@ -1,19 +1,14 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "backend/index.js",  
-      "use": "@vercel/node"
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/auth/google/callback",
-      "destination": "/backend/auth/google/callback"  
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html" 
-    }
-  ]
-}
+    "rewrites": [
+  {
+    "source": "/auth/google/callback",
+    "destination": "/backend/index.js" 
+  },
+  {
+    "source": "/(.*)",
+    "destination": "/index.html"
+  }
+]
+
+  }
+  
