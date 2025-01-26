@@ -22,10 +22,10 @@ const uri = process.env.MONGO_CLOUD;  //Cloud Database
 
 const app = express();
 const port = process.env.PORT || 5000;
-app.use(cors());
+const cors = require('cors');
 app.use(
   cors({
-    origin: 'https://taskology-mu.vercel.app', // Frontend URL
+    origin: ['https://taskology-mu.vercel.app', 'http://localhost:3000'], 
     credentials: true,
   })
 );
@@ -58,15 +58,17 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'https://taskology-mu.vercel.app/auth/google/callback', // Update with your actual deployed URL
+      callbackURL: process.env.NODE_ENV === 'production'
+        ? 'https://taskology-mu.vercel.app/auth/google/callback' // Production URL
+        : 'http://localhost:5000/auth/google/callback', // Local URL
     },
-    (accessToken, refreshToken, profile, done) => {
-      // User's Google profile information
-      // Save or find user in the database
-      return done(null, profile);
+    async (accessToken, refreshToken, profile, done) => {
+      // Handle user login or registration
+      done(null, profile);
     }
   )
 );
+
 
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {
@@ -82,26 +84,23 @@ app.use(passport.session());
 
 // Google Login
 app.get(
-  '/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
-);
-
-// Google Callback
-app.get(
   '/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
-
   async (req, res) => {
+    console.log('Google Callback Hit'); // Log that the callback was hit
+    console.log('req.user:', req.user); // Ensure req.user is populated
+
     try {
       const { displayName, emails } = req.user;
+      console.log('User Info:', { displayName, emails });
+
       const email = emails[0].value;
       let user = await User.findOne({ email });
-      
       if (!user) {
         user = new User({
           username: displayName,
           email: email,
-          password: 'na' // Adjust this as needed
+          password: 'na',
         });
         await user.save();
       }
@@ -111,7 +110,7 @@ app.get(
         process.env.JWT_SECRET,
         { expiresIn: '1h' }
       );
-      console.log("tokrn is:",token)
+      console.log('Generated Token:', token);
 
       res.redirect(`https://taskology-mu.vercel.app/dashboard?token=${token}`);
     } catch (error) {
@@ -120,6 +119,8 @@ app.get(
     }
   }
 );
+
+
 
 // Logout
 app.get('/logout', (req, res) => {
